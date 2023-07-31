@@ -16,5 +16,5 @@ pkg/
 .terraform
 .terraform/*
 .terraform.lock.hcl
-*.tfvars
+# *.tfvars
 release/wi-kubernetes-manifests.yaml

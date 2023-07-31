@@ -16,12 +16,30 @@ terraform {
   required_providers {
     google = {
       source  = "hashicorp/google"
-      version = "4.75.0"
+      version = ">= 4.75.0"
     }
+
+    # kubernetes = {
+    #   source  = "hashicorp/kubernetes"
+    #   version = ">= 2.0.1"
+    # }
   }
+
 }
 
 provider "google" {
-  project = var.gcp_project_id
+  project = var.project_id
   region  = var.region
 }
+
+provider "google-beta" {
+  project = var.project_id
+  region  = var.region
+}
+
+# provider "kubernetes" {
+#   host = data.terraform_remote_state.gke.outputs.kubernetes_cluster_host
+
+#   token                  = data.google_client_config.default.access_token
+#   cluster_ca_certificate = base64decode(data.google_container_cluster.my_cluster.master_auth[0].cluster_ca_certificate)
+# }

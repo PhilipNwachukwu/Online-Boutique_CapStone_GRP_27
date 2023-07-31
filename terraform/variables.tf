@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-variable "gcp_project_id" {
+variable "project_id" {
   type        = string
   description = "The GCP project ID to apply this config to"
 }
@@ -26,7 +26,28 @@ variable "name" {
 variable "region" {
   type        = string
   description = "Region of the new GKE cluster"
-  default     = "us-central1"
+  default = "europe-west2"
+}
+
+variable "location" {
+  type        = string
+  description = "Location of the new GKE cluster"
+  default = "europe-west2-a"
+}
+
+variable "gke_username" {
+  default     = ""
+  description = "gke username"
+}
+
+variable "gke_password" {
+  default     = ""
+  description = "gke password"
+}
+
+variable "gke_num_nodes" {
+  default     = 2
+  description = "number of gke nodes"
 }
 
 variable "namespace" {
@@ -35,13 +56,45 @@ variable "namespace" {
   default     = "default"
 }
 
+variable "namespace-monitoring" {
+  type        = string
+  description = "Kubernetes Namespace in which the loki resources are to be deployed"
+  default     = "monitoring"
+}
+
 variable "filepath_manifest" {
   type        = string
   description = "Path to Online Boutique's Kubernetes resources, written using Kustomize"
   default     = "../kustomize/"
 }
 
+variable "filepath_manifest_prometheus-CRD" {
+  type        = string
+  description = "Path to Online Boutique's Kubernetes resources, written using Kustomize"
+  default     = "../manifests/setup/"
+}
+
+variable "filepath_manifest_prometheus-stack" {
+  type        = string
+  description = "Path to Online Boutique's Kubernetes resources, written using Kustomize"
+  default     = "../manifests/"
+}
+
+variable "filepath_manifest_loki" {
+  type        = string
+  description = "Path to Online Boutique's loki, written using Kustomize"
+  default     = "../kustomize-loki/"
+}
+
 variable "memorystore" {
   type        = bool
   description = "If true, Online Boutique's in-cluster Redis cache will be replaced with a Google Cloud Memorystore Redis cache"
 }
+
+variable "skip_provisioners" {
+  type        = bool
+  description = "Flag to skip all local-exec provisioners. It breaks `stub_domains` and `upstream_nameservers` variables functionality."
+  default     = true
+}
+
+  
